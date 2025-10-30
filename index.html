@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>After School Club — White & Sage Theme</title>
+  <title>After School Club — White & Sage Theme with Stock</title>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,15 +12,15 @@
 
   <style>
     :root{
-      /* New White & Sage Theme */
-      --bg: #f8f9fa; /* Off-white background */
-      --panel: #ffffff; /* White panels/cards */
-      --muted: #5f6e7a; /* Darker grey for muted text */
-      --card: linear-gradient(180deg,#ffffff,#f0f2f5); /* Soft gradient for cards */
+      /* White & Sage Theme */
+      --bg: #f8f9fa;
+      --panel: #ffffff;
+      --muted: #6c757d;
+      --card: linear-gradient(180deg,#ffffff,#f0f2f5);
       --accent: #6b8e23; /* Sage Green */
-      --accent-strong: #5a7a1b; /* Darker Sage Green */
-      --glass-border: rgba(0,0,0,0.08); /* Light border for light theme */
-      --text-color: #212529; /* Dark text for readability */
+      --accent-strong: #5a7a1b;
+      --glass-border: rgba(0,0,0,0.08);
+      --text-color: #212529;
     }
 
     *{box-sizing:border-box}
@@ -40,7 +40,7 @@
       align-items:center;
       justify-content:space-between;
       padding:18px 28px;
-      border-bottom: 2px solid rgba(107,142,35,0.15); /* Accent tint border */
+      border-bottom: 2px solid rgba(107,142,35,0.15);
       background: linear-gradient(90deg, rgba(107,142,35,0.08), rgba(255,255,255,0));
       color: var(--text-color);
     }
@@ -69,7 +69,7 @@
     }
     .tab.active{
       background: linear-gradient(90deg, rgba(107,142,35,0.18), rgba(90,122,27,0.08));
-      color: var(--text-color); /* Darker text for active tab on light bg */
+      color: var(--text-color);
       box-shadow: 0 6px 18px rgba(107,142,35,0.1);
       border-color: rgba(107,142,35,0.2)
     }
@@ -91,7 +91,7 @@
       border-radius:14px;
       padding:18px;
       border:1px solid var(--glass-border);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1); /* Lighter shadow for light theme */
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
       text-align:center;
       transition: transform .18s, box-shadow .18s;
     }
@@ -100,6 +100,14 @@
     .icon{ font-size:42px; color:var(--accent); margin-bottom:10px }
     .card h3{ margin:6px 0 6px;font-size:16px;color:var(--text-color) }
     .card p{ margin:6px 0;color:var(--muted); font-size:13px }
+    
+    .stock-info{
+        font-size: 12px;
+        font-weight: 500;
+        margin: 4px 0;
+    }
+    .stock-info.low{ color: #d9534f; } /* Red for low/out of stock */
+    .stock-info.high{ color: var(--accent-strong); } /* Sage green for high stock */
 
     .card .price{ font-weight:700;color:var(--text-color);margin-top:8px }
     .add-btn{
@@ -112,6 +120,12 @@
       transition: transform .12s, box-shadow .12s;
     }
     .add-btn:hover{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(107,142,35,0.15) }
+    .add-btn:disabled{
+        background: #ced4da; /* Light gray when disabled */
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+    }
 
     /* Checkout layout (left form, right cart) */
     .checkout-wrap{
@@ -125,10 +139,10 @@
     }
     .checkout-left, .checkout-right{
       border-radius:12px;
-      background: var(--panel); /* White background for panels */
+      background: var(--panel);
       border:1px solid var(--glass-border);
       padding:20px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08); /* Soft shadow */
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     }
     .checkout-left{ flex:1; min-width:320px }
     .checkout-right{ width:380px; min-width:260px }
@@ -137,7 +151,7 @@
 
     label{ font-size:13px;color:var(--muted); display:block; margin-bottom:6px;font-weight:600 }
     input[type="text"], input[type="email"], input[type="tel"], select{
-      width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.1); background:#f0f2f5; /* Light input background */
+      width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.1); background:#f0f2f5;
       color:var(--text-color); margin-bottom:14px;
     }
     input::placeholder { color: #a0a0a0; }
@@ -158,7 +172,7 @@
     .cart-list{ display:flex;flex-direction:column; gap:10px }
     .cart-item{
       display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border-radius:8px;
-      background: #f0f2f5; /* Light background for cart item */
+      background: #f0f2f5;
       border:1px solid rgba(0,0,0,0.05);
     }
     .cart-item .left{ display:flex;flex-direction:column; gap:6px; }
@@ -183,7 +197,7 @@
       padding:28px;
       border:1px solid var(--glass-border);
       margin:18px auto;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* Soft shadow */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
     .order-summary h2{ color:var(--accent); margin:0 0 14px 0; border-bottom: 2px solid rgba(107,142,35,0.15); padding-bottom:10px }
 
@@ -194,7 +208,7 @@
         margin-bottom: 20px;
     }
     .info-block-summary{
-      background:#f0f2f5; /* Light background for summary blocks */
+      background:#f0f2f5;
       padding:15px;
       border-radius:8px;
       border:1px solid rgba(0,0,0,0.05);
@@ -248,7 +262,7 @@
     .fade-slide-enter-active, .fade-slide-leave-active {
         transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    .fade-slide-enter, .fade-slide-leave-to /* .fade-slide-leave-active below version 2.1.8 */ {
+    .fade-slide-enter, .fade-slide-leave-to {
         opacity: 0;
         transform: translateY(20px);
     }
@@ -271,7 +285,8 @@
     </header>
 
     <main>
-      <transition name="fade-slide" mode="out-in">
+      
+<transition name="fade-slide" mode="out-in">
         <div v-if="!showCheckout && !showSummary" key="products-view">
           <div class="tabs">
             <button class="tab" :class="{active: currentCategory==='subjects'}" @click="currentCategory='subjects'">Subjects</button>
@@ -284,9 +299,12 @@
               <div class="icon"><i :class="prod.icon"></i></div>
               <h3>{{ prod.subject }}</h3>
               <p>{{ prod.location }}</p>
+              <div class="stock-info" :class="{low: prod.stock - prod.inCart === 0}">
+                  {{ prod.stock - prod.inCart }} available
+              </div>
               <div class="price">AED {{ prod.price }}</div>
               <button class="add-btn" @click="addToCart(prod)" :disabled="!canAddToCart(prod)">
-                <i class="fas fa-plus-circle"></i> Add to cart
+                <i class="fas fa-plus-circle"></i> {{ prod.inCart < prod.stock ? 'Add to cart' : 'Sold Out' }}
               </button>
             </div>
           </div>
@@ -306,7 +324,6 @@
                   <select v-model="order.country">
                     <option disabled value="">Select Country</option>
                     <option>United Arab Emirates</option>
-                    <option>Other</option>
                   </select>
                 </div>
                 <div style="flex:1">
@@ -426,6 +443,12 @@
   </div>
 
   <script>
+    function getRandomStock() {
+        // Returns a random integer between 2 and 5 (inclusive)
+        return Math.floor(Math.random() * (5 - 2 + 1)) + 2;
+    }
+
+    // Vue.js Application
     new Vue({
       el:'#app',
       data:{
@@ -435,28 +458,28 @@
         orderDateTime: null,
 
         order: { name:'', email:'', country:'United Arab Emirates', city:'', studentNumber:'', year:'' },
-        cart: [],
+        cart: [], // Stores product IDs
 
         products: [
-          // All locations changed to Dubai
-          { id: 101, subject:'Mathematics', category:'Subjects', location:'Dubai', price:120, icon:'fas fa-calculator' },
-          { id: 102, subject:'English Language', category:'Subjects', location:'Dubai', price:110, icon:'fas fa-book' },
-          { id: 103, subject:'Science Lab', category:'Subjects', location:'Dubai', price:130, icon:'fas fa-flask' },
-          { id: 104, subject:'Coding Club', category:'Subjects', location:'Dubai', price:180, icon:'fas fa-laptop-code' },
-          { id: 105, subject:'Public Speaking', category:'Subjects', location:'Dubai', price:100, icon:'fas fa-microphone' },
+          // Items now include 'stock' and 'inCart' properties
+          { id: 101, subject:'Mathematics', category:'Subjects', location:'Dubai', price:120, icon:'fas fa-calculator', stock: getRandomStock(), inCart: 0 },
+          { id: 102, subject:'English Language', category:'Subjects', location:'Dubai', price:110, icon:'fas fa-book', stock: getRandomStock(), inCart: 0 },
+          { id: 103, subject:'Science Lab', category:'Subjects', location:'Dubai', price:130, icon:'fas fa-flask', stock: getRandomStock(), inCart: 0 },
+          { id: 104, subject:'Coding Club', category:'Subjects', location:'Dubai', price:180, icon:'fas fa-laptop-code', stock: getRandomStock(), inCart: 0 },
+          { id: 105, subject:'Public Speaking', category:'Subjects', location:'Dubai', price:100, icon:'fas fa-microphone', stock: getRandomStock(), inCart: 0 },
 
-          { id: 201, subject:'Football', category:'Sports', location:'Dubai', price:90, icon:'fas fa-futbol' },
-          { id: 202, subject:'Basketball', category:'Sports', location:'Dubai', price:95, icon:'fas fa-basketball' },
-          { id: 203, subject:'Tennis', category:'Sports', location:'Dubai', price:100, icon:'fas fa-table-tennis' },
-          { id: 204, subject:'Swimming', category:'Sports', location:'Dubai', price:85, icon:'fas fa-person-swimming' },
-          { id: 205, subject:'Martial Arts', category:'Sports', location:'Dubai', price:100, icon:'fas fa-hand-fist' },
+          { id: 201, subject:'Football', category:'Sports', location:'Dubai', price:90, icon:'fas fa-futbol', stock: getRandomStock(), inCart: 0 },
+          { id: 202, subject:'Basketball', category:'Sports', location:'Dubai', price:95, icon:'fas fa-basketball', stock: getRandomStock(), inCart: 0 },
+          { id: 203, subject:'Tennis', category:'Sports', location:'Dubai', price:100, icon:'fas fa-table-tennis', stock: getRandomStock(), inCart: 0 },
+          { id: 204, subject:'Swimming', category:'Sports', location:'Dubai', price:85, icon:'fas fa-person-swimming', stock: getRandomStock(), inCart: 0 },
+          { id: 205, subject:'Martial Arts', category:'Sports', location:'Dubai', price:100, icon:'fas fa-hand-fist', stock: getRandomStock(), inCart: 0 },
 
-          { id: 301, subject:'Music', category:'Activities', location:'Dubai', price:120, icon:'fas fa-music' },
-          { id: 302, subject:'Robotics', category:'Activities', location:'Dubai', price:180, icon:'fas fa-robot' },
-          { id: 303, subject:'Photography', category:'Activities', location:'Dubai', price:150, icon:'fas fa-camera' },
-          { id: 304, subject:'Drama & Theatre', category:'Activities', location:'Dubai', price:130, icon:'fas fa-theater-masks' },
-          { id: 305, subject:'Cooking', category:'Activities', location:'Dubai', price:140, icon:'fas fa-utensils' },
-          { id: 306, subject:'Chess Club', category:'Activities', location:'Dubai', price:95, icon:'fas fa-chess' }
+          { id: 301, subject:'Music', category:'Activities', location:'Dubai', price:120, icon:'fas fa-music', stock: getRandomStock(), inCart: 0 },
+          { id: 302, subject:'Robotics', category:'Activities', location:'Dubai', price:180, icon:'fas fa-robot', stock: getRandomStock(), inCart: 0 },
+          { id: 303, subject:'Photography', category:'Activities', location:'Dubai', price:150, icon:'fas fa-camera', stock: getRandomStock(), inCart: 0 },
+          { id: 304, subject:'Drama & Theatre', category:'Activities', location:'Dubai', price:130, icon:'fas fa-theater-masks', stock: getRandomStock(), inCart: 0 },
+          { id: 305, subject:'Cooking', category:'Activities', location:'Dubai', price:140, icon:'fas fa-utensils', stock: getRandomStock(), inCart: 0 },
+          { id: 306, subject:'Chess Club', category:'Activities', location:'Dubai', price:95, icon:'fas fa-chess', stock: getRandomStock(), inCart: 0 }
         ]
       },
       computed:{
@@ -473,15 +496,14 @@
           this.showSummary = false;
         },
         closeCheckout(){
-          const message = this.showSummary
-              ? `Welcome back to the club listings, ${this.order.name}. Your order has been placed.`
-              : '';
-
+          // Reset cart and order data when returning to the club listings page
           if (this.showSummary) {
-              // Optionally show an alert for confirmation, but the summary page itself is the confirmation.
-              // alert(`✅ Registration Complete for ${this.order.name}! You are registered for ${this.cart.length} club(s) totaling AED ${this.totalPrice}.`);
+              alert(`✅ Order Confirmed. Thank you, ${this.order.name}! Your clubs will now be processed.`);
           }
 
+          // Resetting stock status for products after order is confirmed/viewed.
+          this.products.forEach(p => p.inCart = 0);
+          
           this.cart = [];
           this.order = { name:'', email:'', country:'United Arab Emirates', city:'', studentNumber:'', year:'' };
           this.orderDateTime = null;
@@ -489,15 +511,32 @@
           this.showCheckout = false;
         },
 
-        addToCart(prod){
-          this.cart.push(prod.id);
+        getProductById(id) {
+            return this.products.find(p => p.id === id);
         },
+
+        addToCart(prod){
+            if (this.canAddToCart(prod)) {
+                this.cart.push(prod.id);
+                prod.inCart++; // Increment count for this product
+            } else {
+                alert(`Cannot add more ${prod.subject}. Only ${prod.stock} slots available.`);
+            }
+        },
+        
         removeFromCart(index){
-          this.cart.splice(index,1);
+            const prodIdToRemove = this.cart[index];
+            const product = this.getProductById(prodIdToRemove);
+
+            if (product) {
+                product.inCart--; // Decrement count for this product
+            }
+            this.cart.splice(index,1);
         },
 
         canAddToCart(prod){
-          return true;
+          // Check if the number of items of this product in the cart is less than its stock
+          return prod.inCart < prod.stock;
         },
 
         confirmOrder(){
