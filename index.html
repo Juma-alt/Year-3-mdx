@@ -3,16 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>After School Club — White & Sage Theme with Stock</title>
+  <title>After School Club </title>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-
   <style>
     :root{
-      /* White & Sage Theme */
       --bg: #f8f9fa;
       --panel: #ffffff;
       --muted: #6c757d;
@@ -40,29 +38,55 @@
       align-items:center;
       justify-content:space-between;
       padding:18px 28px;
-      border-bottom: 2px solid rgba(107,142,35,0.15);
-      background: linear-gradient(90deg, rgba(107,142,35,0.08), rgba(255,255,255,0));
-      color: var(--text-color);
+      border-bottom: 2px solid rgba(0,0,0,0.05);
+      background: #b7c4a2; /* Olive light green */
+      color: #1f2937;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-    header h1{margin:0;font-size:20px;color:var(--accent);letter-spacing:0.6px}
-    .cart-btn{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      background:transparent;
-      color:var(--accent);
-      border:1px solid rgba(107,142,35,0.15);
-      padding:8px 12px;
-      border-radius:8px;
-      cursor:pointer;
-      transition:all .18s;
+    header h1{
+      margin:0;
+      font-size:20px;
+      color:#1f2937; /* Dark gray text for contrast */
+      letter-spacing:0.6px;
+      font-weight:700;
     }
+
     .cart-btn:hover{background:rgba(107,142,35,0.08)}
 
-    main{padding:28px;display:flex;flex-direction:column;align-items:center;gap:22px}
+    /* Layout */
+    .container{
+      padding:28px;
+      display:flex;
+      justify-content:center;
+      gap:24px;
+      align-items:flex-start;
+    }
 
-    /* Tabs */
-    .tabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center}
+    /* Left content (tabs + grid) */
+    .left-content{
+      flex:3;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:22px;
+      max-width:980px;
+      width:100%;
+    }
+
+    .tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      align-items:center;
+      background:var(--panel);
+      border-radius:12px;
+      padding:10px 16px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.05);
+      border:1px solid var(--glass-border);
+      width:100%;
+    }
+
     .tab{
       padding:10px 18px;border-radius:999px;background:transparent;border:1px solid var(--glass-border);
       color:var(--muted);cursor:pointer;font-weight:600;transition:all .16s;
@@ -74,17 +98,12 @@
       border-color: rgba(107,142,35,0.2)
     }
 
-    /* Grid */
     .grid{
       width:100%;
-      max-width:1200px;
       display:grid;
-      grid-template-columns: repeat(4,1fr);
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
       gap:20px;
     }
-    @media (max-width:1000px){ .grid{ grid-template-columns: repeat(3,1fr) } }
-    @media (max-width:720px){ .grid{ grid-template-columns: repeat(2,1fr) } }
-    @media (max-width:480px){ .grid{ grid-template-columns: 1fr } }
 
     .card{
       background: var(--card);
@@ -127,48 +146,28 @@
         transform: none;
     }
 
-    /* Checkout layout (left form, right cart) */
-    .checkout-wrap{
-      width:100%;
-      max-width:1200px;
-      display:flex;
-      gap:24px;
-      align-items:flex-start;
-      justify-content:center;
-      padding:20px;
-    }
-    .checkout-left, .checkout-right{
-      border-radius:12px;
-      background: var(--panel);
+    /* Sticky cart while browsing */
+    .sticky-cart{
+      flex:1;
+      position:sticky;
+      top:20px;
+      align-self:flex-start;
+      height:fit-content;
+      background:var(--panel);
       border:1px solid var(--glass-border);
-      padding:20px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.08);
+      max-width:360px;
+      min-width:260px;
     }
-    .checkout-left{ flex:1; min-width:320px }
-    .checkout-right{ width:380px; min-width:260px }
-
-    .section-title{ color:var(--accent); font-weight:700; margin-bottom:12px; font-size:18px }
-
-    label{ font-size:13px;color:var(--muted); display:block; margin-bottom:6px;font-weight:600 }
-    input[type="text"], input[type="email"], input[type="tel"], select{
-      width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.1); background:#f0f2f5;
-      color:var(--text-color); margin-bottom:14px;
+    .sticky-cart h3{
+      color:var(--accent);
+      font-size:18px;
+      margin:0 0 12px 0;
+      text-align:center;
+      font-weight:700;
     }
-    input::placeholder { color: #a0a0a0; }
-
-
-    .place-order-btn{
-      margin-top:10px;
-      width:100%;
-      padding:11px 12px;
-      border-radius:10px;
-      background: linear-gradient(180deg,var(--accent),var(--accent-strong));
-      color:white;border:none;cursor:pointer;font-weight:800;
-      box-shadow: 0 10px 22px rgba(107,142,35,0.1);
-    }
-    .place-order-btn:hover{ filter:brightness(.98) }
-
-    /* Cart items */
     .cart-list{ display:flex;flex-direction:column; gap:10px }
     .cart-item{
       display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border-radius:8px;
@@ -188,7 +187,55 @@
     .total-row .label{ color:var(--muted); font-weight:700 }
     .total-row .value{ font-weight:900;color:var(--text-color) }
 
-    /* Order Summary page (After 'Place Order') */
+    .go-checkout-btn{
+      margin-top:12px;width:100%;padding:11px 12px;border-radius:10px;
+      background: linear-gradient(180deg,var(--accent),var(--accent-strong));
+      color:white;border:none;cursor:pointer;font-weight:800;
+    }
+    .go-checkout-btn:hover{ filter:brightness(.98) }
+
+    /* Checkout layout */
+    .checkout-wrap{
+      width:100%;
+      max-width:1200px;
+      display:flex;
+      gap:24px;
+      align-items:flex-start;
+      justify-content:center;
+      padding:20px;
+      margin:0 auto;
+    }
+    .checkout-left, .checkout-right{
+      border-radius:12px;
+      background: var(--panel);
+      border:1px solid var(--glass-border);
+      padding:20px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .checkout-left{ flex:1; min-width:320px }
+    .checkout-right{ width:380px; min-width:260px }
+
+    .section-title{ color:var(--accent); font-weight:700; margin-bottom:12px; font-size:18px }
+
+    label{ font-size:13px;color:var(--muted); display:block; margin-bottom:6px;font-weight:600 }
+    input[type="text"], input[type="email"], input[type="tel"], select, textarea{
+      width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.1); background:#f0f2f5;
+      color:var(--text-color); margin-bottom:14px;
+    }
+    textarea{ min-height:100px; resize:vertical; }
+
+    .place-order-btn{
+      margin-top:10px;
+      width:100%;
+      padding:11px 12px;
+      border-radius:10px;
+      background: linear-gradient(180deg,var(--accent),var(--accent-strong));
+      color:white;border:none;cursor:pointer;font-weight:800;
+      box-shadow: 0 10px 22px rgba(107,142,35,0.1);
+    }
+    .place-order-btn:hover{ filter:brightness(.98) }
+
+    /* Order Summary / Receipt */
     .order-summary{
       width:100%;
       max-width:900px;
@@ -227,7 +274,6 @@
         color:var(--text-color);
     }
 
-    /* Items List in Summary */
     .items-list h3{ color:var(--accent); margin-top:18px; padding-bottom:5px; border-bottom:1px solid rgba(0,0,0,0.08) }
     .summary-item{
         display:flex;
@@ -258,18 +304,77 @@
         margin-top: 20px;
     }
 
-    /* Page Transitions (Fade & Slide) */
+    /* Receipt print styles */
+    @media print {
+      body * { visibility: hidden; }
+      .receipt-printarea, .receipt-printarea * { visibility: visible; }
+      .receipt-printarea { position: absolute; left: 0; top: 0; width: 100%; }
+    }
+
+    /* transitions */
     .fade-slide-enter-active, .fade-slide-leave-active {
-        transition: opacity 0.5s ease, transform 0.5s ease;
+        transition: opacity 0.4s ease, transform 0.4s ease;
     }
     .fade-slide-enter, .fade-slide-leave-to {
         opacity: 0;
         transform: translateY(20px);
     }
+    
+    /* Confirmation Modal - NEW STYLES */
+    .confirmation-modal-overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    .confirmation-modal{
+        background: var(--panel);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        transform: scale(1);
+        transition: transform 0.3s ease-out;
+    }
+    .icon-big{
+        font-size: 60px;
+        color: var(--accent);
+        margin-bottom: 15px;
+    }
+    .confirmation-modal h3{
+        margin: 0 0 10px 0;
+        font-size: 24px;
+        color: var(--accent-strong);
+    }
+    .confirmation-modal p{
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    .modal-close-btn{
+        margin-top: 15px;
+        width: 100%;
+        padding: 12px 15px;
+        border-radius: 10px;
+        background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+    }
+    .modal-close-btn:hover{ filter: brightness(.98) }
 
-    /* small screens */
     @media (max-width: 980px){
-      .checkout-wrap{ flex-direction:column; align-items:stretch;padding:12px }
+      .container{flex-direction:column;padding:16px}
+      .sticky-cart{position:static;width:100%;}
       .checkout-right{ width:100% }
     }
   </style>
@@ -284,275 +389,393 @@
       </button>
     </header>
 
-    <main>
-      
-<transition name="fade-slide" mode="out-in">
-        <div v-if="!showCheckout && !showSummary" key="products-view">
-          <div class="tabs">
-            <button class="tab" :class="{active: currentCategory==='subjects'}" @click="currentCategory='subjects'">Subjects</button>
-            <button class="tab" :class="{active: currentCategory==='sports'}" @click="currentCategory='sports'">Sports</button>
-            <button class="tab" :class="{active: currentCategory==='activities'}" @click="currentCategory='activities'">Activities</button>
-          </div>
-
-          <div class="grid">
-            <div v-for="prod in filteredProducts" :key="prod.id" class="card">
-              <div class="icon"><i :class="prod.icon"></i></div>
-              <h3>{{ prod.subject }}</h3>
-              <p>{{ prod.location }}</p>
-              <div class="stock-info" :class="{low: prod.stock - prod.inCart === 0}">
-                  {{ prod.stock - prod.inCart }} available
-              </div>
-              <div class="price">AED {{ prod.price }}</div>
-              <button class="add-btn" @click="addToCart(prod)" :disabled="!canAddToCart(prod)">
-                <i class="fas fa-plus-circle"></i> {{ prod.inCart < prod.stock ? 'Add to cart' : 'Sold Out' }}
-              </button>
-            </div>
-          </div>
+    <div v-if="!showCheckout && !showSummary && !showConfirmationModal" class="container">
+      <div class="left-content">
+        <div class="tabs">
+          <button class="tab" :class="{active: currentCategory==='subjects'}" @click="currentCategory='subjects'">Subjects</button>
+          <button class="tab" :class="{active: currentCategory==='sports'}" @click="currentCategory='sports'">Sports</button>
+          <button class="tab" :class="{active: currentCategory==='activities'}" @click="currentCategory='activities'">Activities</button>
         </div>
 
-        <div v-else-if="showCheckout && !showSummary" key="checkout-view" class="checkout-wrap">
-          <div class="checkout-left">
-            <div class="section-title">Registration Details</div>
+        <div class="grid">
+          <div v-for="prod in filteredProducts" :key="prod.id" class="card">
+            <div class="icon"><i :class="prod.icon"></i></div>
+            <h3>{{ prod.subject }}</h3>
+            <p>{{ prod.location }}</p>
+            <div class="stock-info" :class="{low: prod.stock - prod.inCart === 0, high: prod.stock - prod.inCart > 0}">
+              {{ prod.stock - prod.inCart }} available
+            </div>
+            <div class="price">AED {{ prod.price }}</div>
+            
+            <button v-if="prod.inCart === 0" class="add-btn" @click="addToCart(prod)" :disabled="!canAddToCart(prod)">
+              <i class="fas fa-plus-circle"></i> {{ prod.stock > 0 ? 'Add to cart' : 'Sold Out' }}
+            </button>
+            <div v-else style="margin-top:12px; padding:10px 12px; border-radius:10px; background: #e9ecef; color: var(--muted); font-weight:700;">
+              <i class="fas fa-check-circle"></i> Not available
+            </div>
 
-            <div>
-              <label>Full Name</label>
-              <input type="text" placeholder="Student full name" v-model="order.name">
+          </div>
+        </div>
+      </div>
 
-              <div style="display:flex;gap:10px">
-                <div style="flex:1">
-                  <label>Country</label>
-                  <select v-model="order.country">
-                    <option disabled value="">Select Country</option>
-                    <option>United Arab Emirates</option>
-                  </select>
-                </div>
-                <div style="flex:1">
-                  <label>City (Emirate)</label>
-                  <select v-model="order.city">
-                    <option disabled value="">Select Emirate</option>
-                    <option>Dubai</option>
-                    <option>Abu Dhabi</option>
-                    <option>Sharjah</option>
-                    <option>Ajman</option>
-                    <option>Umm Al Quwain</option>
-                    <option>Ras Al Khaimah</option>
-                    <option>Fujairah</option>
-                  </select>
-                </div>
-              </div>
+      <aside class="sticky-cart">
+        <h3>Your Cart</h3>
 
-              <label>Year of Study</label>
-              <select v-model="order.year">
-                  <option disabled value="">Select Year</option>
-                  <option v-for="year in 12" :key="year">Year {{ year }}</option>
+        <div v-if="cart.length" class="cart-list">
+          <div v-for="(item, idx) in cart" :key="idx" class="cart-item">
+            <div class="left">
+              <div class="title">{{ item.subject }}</div>
+              <div class="meta">{{ item.category }} • {{ item.location }}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="price">AED {{ item.price }}</div>
+              <button class="remove-btn" @click="removeFromCart(idx)" title="Remove"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+
+          <div class="total-row">
+            <div class="label">Total</div>
+            <div class="value">AED {{ totalPrice }}</div>
+          </div>
+
+          <button class="go-checkout-btn" @click="openCheckout">Proceed to Checkout</button>
+        </div>
+
+        <div v-else style="color:var(--muted);padding:12px;text-align:center">No items selected yet.</div>
+      </aside>
+    </div>
+
+    <div v-else-if="showCheckout && !showSummary && !showConfirmationModal" class="checkout-wrap">
+      <div class="checkout-left">
+        <div class="section-title">Registration Details</div>
+
+        <div>
+          <label>Full Name</label>
+          <input type="text" placeholder="Student full name" v-model="order.name">
+
+          <div style="display:flex;gap:10px">
+            <div style="flex:1">
+              <label>Country</label>
+              <select v-model="order.country">
+                <option disabled value="">Select Country</option>
+                <option>United Arab Emirates</option>
+                <option>Other</option>
               </select>
-
-              <label>Student Number</label>
-              <input type="text" placeholder="School student number" v-model="order.studentNumber">
-
-              <label>Email</label>
-              <input type="email" placeholder="example@mail.com" v-model="order.email">
-
-              <button class="place-order-btn" @click="confirmOrder">Place Order</button>
-              <div style="margin-top:10px;text-align:center">
-                <button class="place-order-btn" style="background:transparent;border:1px solid rgba(0,0,0,0.1);color:var(--muted); box-shadow:none" @click="closeCheckout">Back to Clubs</button>
-              </div>
+            </div>
+            <div style="flex:1">
+              <label>City (Emirate)</label>
+              <select v-model="order.city">
+                <option disabled value="">Select Emirate</option>
+                <option>Dubai</option>
+                <option>Abu Dhabi</option>
+                <option>Sharjah</option>
+                <option>Ajman</option>
+                <option>Umm Al Quwain</option>
+                <option>Ras Al Khaimah</option>
+                <option>Fujairah</option>
+              </select>
             </div>
           </div>
 
-          <aside class="checkout-right">
-            <div class="section-title">Your Selected Clubs</div>
+          <label>Year of Study</label>
+          <select v-model="order.year">
+              <option disabled value="">Select Year</option>
+              <option v-for="y in 12" :key="y">Year {{ y }}</option>
+          </select>
 
-            <div v-if="cartDetails.length" class="cart-list">
-              <div v-for="(item, idx) in cartDetails" :key="idx" class="cart-item">
-                <div class="left">
-                  <div class="title">{{ item.subject }}</div>
-                  <div class="meta">{{ item.category }} • {{ item.location }}</div>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px">
-                  <div class="price">AED {{ item.price }}</div>
-                  <button class="remove-btn" @click="removeFromCart(idx)" title="Remove"><i class="fas fa-times"></i></button>
-                </div>
-              </div>
+          <label>Student Number</label>
+          <input type="text" placeholder="School student number" v-model="order.studentNumber">
 
-              <div class="total-row">
-                <div class="label">Total</div>
-                <div class="value">AED {{ totalPrice }}</div>
-              </div>
-            </div>
+          <label>Email</label>
+          <input type="email" placeholder="example@mail.com" v-model="order.email">
 
-            <div v-else style="color:var(--muted);padding:12px">No items selected yet.</div>
-          </aside>
-        </div>
+          <label>Additional Notes (optional)</label>
+          <textarea placeholder="Any special instructions or notes" v-model="order.notes"></textarea>
 
-        <div v-else-if="showSummary" key="summary-view" class="order-summary">
-          <h2>✅ Order Confirmation</h2>
-
-          <div class="order-info-grid">
-              <div class="info-block-summary">
-                  <b>Student Name</b>
-                  <div>{{ order.name || '-' }}</div>
-              </div>
-              <div class="info-block-summary">
-                  <b>Country / Emirate</b>
-                  <div>{{ order.country || '-' }} / {{ order.city || '-' }}</div>
-              </div>
-              <div class="info-block-summary">
-                  <b>Year of Study</b>
-                  <div>{{ order.year || '-' }}</div>
-              </div>
-              <div class="info-block-summary">
-                  <b>Student ID</b>
-                  <div>{{ order.studentNumber || '-' }}</div>
-              </div>
-              <div class="info-block-summary">
-                  <b>Email Address</b>
-                  <div>{{ order.email || '-' }}</div>
-              </div>
-          </div>
-
-          <div class="items-list">
-            <h3 style="color:var(--accent);margin-top:18px">Selected Clubs</h3>
-            <div v-if="cartDetails.length">
-              <div v-for="(it, i) in cartDetails" :key="i" class="summary-item">
-                <div>
-                  <div class="name">{{ it.subject }}</div>
-                  <div class="meta">{{ it.category }} • {{ it.location }}</div>
-                </div>
-                <div class="price">AED {{ it.price }}</div>
-              </div>
-
-              <div class="summary-total">
-                <div>Grand Total</div>
-                <div>AED {{ totalPrice }}</div>
-              </div>
-            </div>
-            <div v-else style="color:var(--muted);padding:12px">No items were registered.</div>
-          </div>
-
-          <div class="summary-footer">
-              Order Placed: {{ orderDateTime }}
-          </div>
-
-          <div style="display:flex;justify-content:flex-end;margin-top:20px;">
-            <button class="place-order-btn" style="width:auto;padding:10px 20px;" @click="closeCheckout">Back to Clubs</button>
+          <button class="place-order-btn" @click="confirmOrder">Confirm Order</button>
+          <div style="margin-top:10px;text-align:center">
+            <button class="place-order-btn" style="background:transparent;border:1px solid rgba(0,0,0,0.1);color:var(--muted); box-shadow:none" @click="cancelCheckout">Back to Clubs</button>
           </div>
         </div>
-      </transition>
-    </main>
+      </div>
+
+      <aside class="checkout-right">
+        <div class="section-title">Your Selected Clubs</div>
+
+        <div v-if="cart.length" class="cart-list">
+          <div v-for="(item, idx) in cart" :key="idx" class="cart-item">
+            <div class="left">
+              <div class="title">{{ item.subject }}</div>
+              <div class="meta">{{ item.category }} • {{ item.location }}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="price">AED {{ item.price }}</div>
+              <button class="remove-btn" @click="removeFromCart(idx)" title="Remove"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+
+          <div class="total-row">
+            <div class="label">Total</div>
+            <div class="value">AED {{ totalPrice }}</div>
+          </div>
+        </div>
+
+        <div v-else style="color:var(--muted);padding:12px">No items selected yet.</div>
+      </aside>
+    </div>
+
+    <div v-if="showConfirmationModal" class="confirmation-modal-overlay">
+      <div class="confirmation-modal">
+        <div class="icon-big"><i class="fas fa-check-circle"></i></div>
+        <h3>Order Confirmed!</h3>
+        <p>Your registration for the clubs has been successfully submitted.</p>
+        <p>Please review the official receipt below.</p>
+        <button class="modal-close-btn" @click="showSummary = true; showConfirmationModal = false;">
+          View Receipt
+        </button>
+      </div>
+    </div>
+    <div v-else-if="showSummary" class="order-summary">
+      <div class="receipt-printarea">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div>
+            <h2 style="margin:0;color:var(--accent);">After School Club — Official Receipt</h2>
+            <div style="font-size:12px;color:var(--muted);margin-top:6px;">Thank you for registering — official receipt below.</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:800;color:var(--accent-strong)">Order #{{ orderId }}</div>
+            <div style="font-size:12px;color:var(--muted)">{{ orderDateTime }}</div>
+          </div>
+        </div>
+
+        <div class="order-info-grid">
+            <div class="info-block-summary">
+                <b>Student Name</b>
+                <div>{{ order.name || '-' }}</div>
+            </div>
+            <div class="info-block-summary">
+                <b>Country / Emirate</b>
+                <div>{{ order.country || '-' }} / {{ order.city || '-' }}</div>
+            </div>
+            <div class="info-block-summary">
+                <b>Year of Study</b>
+                <div>{{ order.year || '-' }}</div>
+            </div>
+            <div class="info-block-summary">
+                <b>Student ID</b>
+                <div>{{ order.studentNumber || '-' }}</div>
+            </div>
+            <div class="info-block-summary">
+                <b>Email Address</b>
+                <div>{{ order.email || '-' }}</div>
+            </div>
+        </div>
+
+        <div class="items-list">
+          <h3 style="color:var(--accent);margin-top:0;">Selected Clubs</h3>
+
+          <div v-if="cart.length">
+            <div v-for="(it, i) in cart" :key="i" class="summary-item">
+              <div>
+                <div class="name">{{ it.subject }}</div>
+                <div class="meta">{{ it.category }} • {{ it.location }}</div>
+              </div>
+              <div class="price">AED {{ it.price }}</div>
+            </div>
+
+            <div class="summary-total">
+              <div>Grand Total</div>
+              <div>AED {{ totalPrice }}</div>
+            </div>
+          </div>
+          <div v-else style="color:var(--muted);padding:12px">No items were registered.</div>
+        </div>
+
+        <div class="summary-footer">
+            Order Placed: {{ orderDateTime }}
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
+        <button class="place-order-btn" style="width:auto;padding:10px 18px;" @click="downloadReceipt">
+          <i class="fas fa-file-download" style="margin-right:8px"></i> Download Receipt
+        </button>
+        <button class="go-checkout-btn" style="width:auto;padding:10px 18px;background:transparent;color:var(--muted);border:1px solid rgba(0,0,0,0.08);" @click="doneAndReturn">
+          Back to Clubs
+        </button>
+      </div>
+    </div>
   </div>
 
   <script>
-    function getRandomStock() {
-        // Returns a random integer between 2 and 5 (inclusive)
-        return Math.floor(Math.random() * (5 - 2 + 1)) + 2;
-    }
+    // Utility
+    function getRandomStock(){ return Math.floor(Math.random()*(5-2+1))+2; } // 2..5
+    function formatDateTime(d){ return new Date(d).toLocaleString(); }
+    function makeOrderId(){ return 'ASC' + Math.floor(100000 + Math.random()*900000); }
 
-    // Vue.js Application
     new Vue({
       el:'#app',
       data:{
         currentCategory: 'subjects',
         showCheckout: false,
         showSummary: false,
+        showConfirmationModal: false, // <-- NEW property for the pop-up
         orderDateTime: null,
+        orderId: null,
 
-        order: { name:'', email:'', country:'United Arab Emirates', city:'', studentNumber:'', year:'' },
-        cart: [], // Stores product IDs
-
+        order: { name:'', email:'', country:'United Arab Emirates', city:'', studentNumber:'', year:'', notes:'' },
+        cart: [], // store product objects
         products: [
-          // Items now include 'stock' and 'inCart' properties
+          // Subjects (15)
           { id: 101, subject:'Mathematics', category:'Subjects', location:'Dubai', price:120, icon:'fas fa-calculator', stock: getRandomStock(), inCart: 0 },
           { id: 102, subject:'English Language', category:'Subjects', location:'Dubai', price:110, icon:'fas fa-book', stock: getRandomStock(), inCart: 0 },
           { id: 103, subject:'Science Lab', category:'Subjects', location:'Dubai', price:130, icon:'fas fa-flask', stock: getRandomStock(), inCart: 0 },
           { id: 104, subject:'Coding Club', category:'Subjects', location:'Dubai', price:180, icon:'fas fa-laptop-code', stock: getRandomStock(), inCart: 0 },
-          { id: 105, subject:'Public Speaking', category:'Subjects', location:'Dubai', price:100, icon:'fas fa-microphone', stock: getRandomStock(), inCart: 0 },
+          { id: 106, subject:'Economics', category:'Subjects', location:'Dubai', price:125, icon:'fas fa-chart-line', stock: getRandomStock(), inCart: 0 },
+          { id: 107, subject:'History', category:'Subjects', location:'Dubai', price:115, icon:'fas fa-landmark', stock: getRandomStock(), inCart: 0 },
+          { id: 108, subject:'Geography', category:'Subjects', location:'Dubai', price:120, icon:'fas fa-globe', stock: getRandomStock(), inCart: 0 },
+          { id: 109, subject:'Chemistry', category:'Subjects', location:'Dubai', price:140, icon:'fas fa-vial', stock: getRandomStock(), inCart: 0 },
+          { id: 110, subject:'Biology', category:'Subjects', location:'Dubai', price:135, icon:'fas fa-dna', stock: getRandomStock(), inCart: 0 },
+          { id: 111, subject:'Physics', category:'Subjects', location:'Dubai', price:130, icon:'fas fa-atom', stock: getRandomStock(), inCart: 0 },
+          { id: 112, subject:'Business Studies', category:'Subjects', location:'Dubai', price:125, icon:'fas fa-briefcase', stock: getRandomStock(), inCart: 0 },
+          { id: 113, subject:'Art & Design', category:'Subjects', location:'Dubai', price:115, icon:'fas fa-paint-brush', stock: getRandomStock(), inCart: 0 },
+          { id: 114, subject:'French Language', category:'Subjects', location:'Dubai', price:105, icon:'fas fa-language', stock: getRandomStock(), inCart: 0 },
+          { id: 115, subject:'ICT Basics', category:'Subjects', location:'Dubai', price:150, icon:'fas fa-desktop', stock: getRandomStock(), inCart: 0 },
+          { id: 116, subject:'Creative Writing', category:'Subjects', location:'Dubai', price:115, icon:'fas fa-pencil-alt', stock:getRandomStock(), inCart:0 },
 
+          // Sports (15)
           { id: 201, subject:'Football', category:'Sports', location:'Dubai', price:90, icon:'fas fa-futbol', stock: getRandomStock(), inCart: 0 },
           { id: 202, subject:'Basketball', category:'Sports', location:'Dubai', price:95, icon:'fas fa-basketball', stock: getRandomStock(), inCart: 0 },
           { id: 203, subject:'Tennis', category:'Sports', location:'Dubai', price:100, icon:'fas fa-table-tennis', stock: getRandomStock(), inCart: 0 },
           { id: 204, subject:'Swimming', category:'Sports', location:'Dubai', price:85, icon:'fas fa-person-swimming', stock: getRandomStock(), inCart: 0 },
           { id: 205, subject:'Martial Arts', category:'Sports', location:'Dubai', price:100, icon:'fas fa-hand-fist', stock: getRandomStock(), inCart: 0 },
+          { id: 206, subject:'Cricket', category:'Sports', location:'Dubai', price:95, icon:'fas fa-baseball-ball', stock: getRandomStock(), inCart: 0 },
+          { id: 207, subject:'Volleyball', category:'Sports', location:'Dubai', price:90, icon:'fas fa-volleyball', stock: getRandomStock(), inCart: 0 },
+          { id: 208, subject:'Badminton', category:'Sports', location:'Dubai', price:85, icon:'fas fa-table-tennis', stock: getRandomStock(), inCart: 0 },
+          { id: 209, subject:'Table Tennis', category:'Sports', location:'Dubai', price:90, icon:'fas fa-table-tennis', stock: getRandomStock(), inCart: 0 },
+          { id: 210, subject:'Athletics', category:'Sports', location:'Dubai', price:80, icon:'fas fa-running', stock: getRandomStock(), inCart: 0 },
+          { id: 211, subject:'Rugby', category:'Sports', location:'Dubai', price:95, icon:'fas fa-football-ball', stock: getRandomStock(), inCart: 0 },
+          { id: 212, subject:'Cycling', category:'Sports', location:'Dubai', price:90, icon:'fas fa-bicycle', stock: getRandomStock(), inCart: 0 },
+          { id: 213, subject:'Boxing', category:'Sports', location:'Dubai', price:100, icon:'fas fa-hand-rock', stock: getRandomStock(), inCart: 0 },
+          { id: 214, subject:'Gymnastics', category:'Sports', location:'Dubai', price:95, icon:'fas fa-dumbbell', stock: getRandomStock(), inCart: 0 },
+          { id: 215, subject:'Yoga', category:'Sports', location:'Dubai', price:85, icon:'fas fa-person', stock: getRandomStock(), inCart: 0 },
 
+          // Activities (15)
           { id: 301, subject:'Music', category:'Activities', location:'Dubai', price:120, icon:'fas fa-music', stock: getRandomStock(), inCart: 0 },
           { id: 302, subject:'Robotics', category:'Activities', location:'Dubai', price:180, icon:'fas fa-robot', stock: getRandomStock(), inCart: 0 },
           { id: 303, subject:'Photography', category:'Activities', location:'Dubai', price:150, icon:'fas fa-camera', stock: getRandomStock(), inCart: 0 },
-          { id: 304, subject:'Drama & Theatre', category:'Activities', location:'Dubai', price:130, icon:'fas fa-theater-masks', stock: getRandomStock(), inCart: 0 },
-          { id: 305, subject:'Cooking', category:'Activities', location:'Dubai', price:140, icon:'fas fa-utensils', stock: getRandomStock(), inCart: 0 },
-          { id: 306, subject:'Chess Club', category:'Activities', location:'Dubai', price:95, icon:'fas fa-chess', stock: getRandomStock(), inCart: 0 }
+          { id: 304, subject:'Cooking', category:'Activities', location:'Dubai', price:130, icon:'fas fa-utensils', stock: getRandomStock(), inCart: 0 },
+          { id: 305, subject:'Dance', category:'Activities', location:'Dubai', price:140, icon:'fas fa-music', stock: getRandomStock(), inCart: 0 },
+          { id: 306, subject:'Drama', category:'Activities', location:'Dubai', price:125, icon:'fas fa-theater-masks', stock: getRandomStock(), inCart: 0 },
+          { id: 307, subject:'Graphic Design', category:'Activities', location:'Dubai', price:160, icon:'fas fa-pen-nib', stock: getRandomStock(), inCart: 0 },
+          { id: 308, subject:'Film Making', category:'Activities', location:'Dubai', price:170, icon:'fas fa-film', stock: getRandomStock(), inCart: 0 },
+          { id: 309, subject:'Gardening', category:'Activities', location:'Dubai', price:100, icon:'fas fa-leaf', stock: getRandomStock(), inCart: 0 },
+          { id: 310, subject:'Chess Club', category:'Activities', location:'Dubai', price:90, icon:'fas fa-chess', stock: getRandomStock(), inCart: 0 },
+          { id: 311, subject:'Debate Club', category:'Activities', location:'Dubai', price:110, icon:'fas fa-comments', stock: getRandomStock(), inCart: 0 },
+          { id: 312, subject:'Writing Workshop', category:'Activities', location:'Dubai', price:120, icon:'fas fa-pen', stock: getRandomStock(), inCart: 0 },
+          { id: 313, subject:'Community Service', category:'Activities', location:'Dubai', price:80, icon:'fas fa-hands-helping', stock: getRandomStock(), inCart: 0 },
+          { id: 314, subject:'Portery ', category:'Activities', location:'Dubai', price:80, icon:'fas fa-bowl-food', stock: getRandomStock(), inCart: 0 },
+          { id: 315, subject:'Fashion Design', category:'Activities', location:'Dubai', price:160, icon:'fas fa-tshirt', stock: getRandomStock(), inCart: 0 },
+          { id: 316, subject:'Public Speaking', category:'Activities', location:'Dubai', price:100, icon:'fas fa-microphone', stock: getRandomStock(), inCart: 0 },
+          { id: 317, subject:'Law Club', category:'Activities', location:'Dubai', price:130, icon:'fas fa-scale-balanced', stock: getRandomStock(), inCart: 0 },
+          { id: 318, subject:'Art & Craft', category:'Activities', location:'Dubai', price:120, icon:'fas fa-paint-brush', stock:getRandomStock(), inCart:0 }
         ]
       },
       computed:{
         filteredProducts(){
+          // match by lowercase 'subjects' / 'sports' / 'activities'
           return this.products.filter(p => p.category.toLowerCase() === this.currentCategory);
         },
         cartItemCount(){ return this.cart.length; },
-        cartDetails(){ return this.cart.map(id => this.products.find(p => p.id === id) ).filter(Boolean); },
-        totalPrice(){ return this.cartDetails.reduce((s,i) => s + (i.price||0), 0); }
+        totalPrice(){ return this.cart.reduce((s,i)=>s + (i.price||0), 0); }
       },
       methods:{
         openCheckout(){
+          // go to checkout only if cart has items
+          if(this.cart.length === 0){
+            alert('Please add at least one club before proceeding to checkout.');
+            return;
+          }
           this.showCheckout = true;
           this.showSummary = false;
+          this.showConfirmationModal = false; // Ensure modal is hidden
         },
-        closeCheckout(){
-          // Reset cart and order data when returning to the club listings page
-          if (this.showSummary) {
-              alert(`✅ Order Confirmed. Thank you, ${this.order.name}! Your clubs will now be processed.`);
-          }
-
-          // Resetting stock status for products after order is confirmed/viewed.
-          this.products.forEach(p => p.inCart = 0);
-          
-          this.cart = [];
-          this.order = { name:'', email:'', country:'United Arab Emirates', city:'', studentNumber:'', year:'' };
-          this.orderDateTime = null;
-          this.showSummary = false;
+        cancelCheckout(){
           this.showCheckout = false;
         },
-
-        getProductById(id) {
-            return this.products.find(p => p.id === id);
+        getProductById(id){
+          return this.products.find(p => p.id === id);
         },
-
-        addToCart(prod){
-            if (this.canAddToCart(prod)) {
-                this.cart.push(prod.id);
-                prod.inCart++; // Increment count for this product
-            } else {
-                alert(`Cannot add more ${prod.subject}. Only ${prod.stock} slots available.`);
-            }
-        },
-        
-        removeFromCart(index){
-            const prodIdToRemove = this.cart[index];
-            const product = this.getProductById(prodIdToRemove);
-
-            if (product) {
-                product.inCart--; // Decrement count for this product
-            }
-            this.cart.splice(index,1);
-        },
-
+        // MODIFICATION: Enforce one-per-item limit
         canAddToCart(prod){
-          // Check if the number of items of this product in the cart is less than its stock
-          return prod.inCart < prod.stock;
+          return prod.inCart === 0 && prod.stock > 0;
         },
-
+        addToCart(prod){
+          // The canAddToCart check now enforces the one-time limit
+          if(this.canAddToCart(prod)){
+            // push a shallow clone of product reference (so UI shows subject & price)
+            this.cart.push(prod);
+            prod.inCart++;
+          } else if (prod.inCart > 0) {
+            // Already in cart - do nothing or show a message if needed.
+            // alert(`${prod.subject} is already added.`);
+          } else {
+            alert(`Cannot add ${prod.subject}. It is currently sold out.`);
+          }
+        },
+        removeFromCart(index){
+          const prod = this.cart[index];
+          if(prod){
+            // decrement inCart on the original product object
+            const original = this.getProductById(prod.id);
+            if(original) original.inCart = Math.max(0, original.inCart - 1);
+          }
+          this.cart.splice(index,1);
+        },
         confirmOrder(){
+          // validation
           if(!this.order.name || !this.order.email || !this.order.studentNumber || !this.order.city || !this.order.country || !this.order.year){
             alert('Please fill all required registration fields (Name, Email, Student Number, Year, Country & City).');
             return;
           }
-          if(this.cart.length===0){
+          if(this.cart.length === 0){
             alert('Please add at least one club before placing the order.');
             return;
           }
 
-          this.orderDateTime = new Date().toLocaleString();
+          this.orderDateTime = formatDateTime(new Date());
+          this.orderId = makeOrderId();
 
-          this.showSummary = true;
+          // Action: Show the Confirmation Modal
+          this.showConfirmationModal = true;
           this.showCheckout = false;
+        },
+        downloadReceipt(){
+          // Print only the receipt area. Users can choose "Save as PDF" in print dialog.
+          window.print();
+        },
+        doneAndReturn(){
+          // After viewing receipt, reset form & cart so user can start fresh.
+          // This alert is now redundant since we added the modal, but kept for final confirmation of processing.
+         
+          
+          // Reduce actual stock permanently by number of times inCart was used -> here we already incremented inCart when adding.
+          // But to simulate final consumption we subtract inCart from stock and reset inCart.
+          this.products.forEach(p => {
+            const taken = p.inCart || 0;
+            p.stock = Math.max(0, p.stock - taken);
+            p.inCart = 0;
+          });
+
+          // Clear cart and order details
+          this.cart = [];
+          this.order = { name:'', email:'', country:'United Arab Emirates', city:'', studentNumber:'', year:'', notes:'' };
+          this.orderDateTime = null;
+          this.orderId = null;
+          this.showSummary = false;
+          this.showCheckout = false;
+          this.showConfirmationModal = false; // Ensure modal is hidden
+          this.currentCategory = 'subjects';
         }
       }
     });
